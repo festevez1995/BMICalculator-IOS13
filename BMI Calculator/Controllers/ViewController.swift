@@ -15,6 +15,14 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func HeightSliderTriggered(_ sender: UISlider) {
+        print(sender.value)
+    }
+    
+    @IBAction func WeightSliderTriggered(_ sender: UISlider) {
+        print(sender.value)
 
+    }
+    
 }
 
