@@ -45,8 +45,9 @@ class ViewController: UIViewController {
         if segue.identifier == "goToResults" {
             let destinationVC = segue.destination as! ResultsViewController
             destinationVC.bmiValue = calcBrain.bmiToString()
+            destinationVC.advice = calcBrain.getAdvice()
+            destinationVC.color = calcBrain.getColor()
         }
-        // Pass the selected object to the new view controller.
     }
 }
 
