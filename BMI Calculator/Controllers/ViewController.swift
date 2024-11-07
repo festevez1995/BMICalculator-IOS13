@@ -9,6 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var calcBrain = CalculatorBrain()
 
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
@@ -16,45 +18,33 @@ class ViewController: UIViewController {
     @IBOutlet weak var heightSlider: UISlider!
     @IBOutlet weak var weightSlider: UISlider!
     
-    var bmi: Float = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func HeightSliderTriggered(_ sender: UISlider) {
         heightLabel.text = String(format: "%0.2f", sender.value) + "m"
-        
-       // print(String(format: "%0.2f", sender.value))
     }
     
     @IBAction func WeightSliderTriggered(_ sender: UISlider) {
         weightLabel.text = String(Int(sender.value)) + "Kg"
-       // print(Int(sender.value))
-
     }
     
     @IBAction func calculationPressed(_ sender: Any) {
         let inputHeight = heightSlider.value
         let inputWeight = weightSlider.value
         
-        bmi = calculateBMI(height: inputHeight, weight: inputWeight)
+        calcBrain.calculateBMI(height: inputHeight, weight: inputWeight)
         
         self.performSegue(withIdentifier: "goToResults", sender: self)
-//        print(bmi)
-    }
-    
-    func calculateBMI(height: Float, weight: Float) -> Float {
-        let bmi = weight / (height * height)
-        return bmi
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         if segue.identifier == "goToResults" {
             let destinationVC = segue.destination as! ResultsViewController
-            destinationVC.bmiValue = String(format:"%.1f", bmi)
+            destinationVC.bmiValue = calcBrain.bmiToString()
         }
         // Pass the selected object to the new view controller.
     }
